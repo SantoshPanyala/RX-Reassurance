@@ -1,0 +1,7 @@
+.wireframe-layout {
+  padding: 20px;
+  padding-bottom: 80px; /* Space for fixed demo controls */
+  max-width: 800px;
+  margin: 0 auto;
+}
+
