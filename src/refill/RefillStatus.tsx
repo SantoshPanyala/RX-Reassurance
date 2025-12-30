@@ -209,9 +209,10 @@ export function RefillStatus({ refill, isDemoMode, currentTime, onBack }: Refill
         {viewState.showActions && viewState.actions && (
           <VStack align="stretch" gap={3}>
             {viewState.actions.includes("CONTACT_PHARMACY") && (
-              <Link href={`tel:${pharmacyPhone}`} style={{ textDecoration: 'none' }}>
+              <Link href={`tel:${pharmacyPhone}`} style={{ textDecoration: 'none', width: '100%' }}>
                 <ActionButton 
                   aria-label="Contact pharmacy about this refill"
+                  w="full"
                 >
                   Contact pharmacy ({pharmacyPhone})
                 </ActionButton>
