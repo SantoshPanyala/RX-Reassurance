@@ -1,4 +1,4 @@
-import { CardRoot, CardBody, Text, VStack, HStack, Button, Box, Image } from '@chakra-ui/react';
+import { CardRoot, CardBody, Text, VStack, Button, Box, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 
 interface PromoCardProps {

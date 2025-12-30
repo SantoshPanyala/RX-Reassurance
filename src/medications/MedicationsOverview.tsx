@@ -119,13 +119,15 @@ export function MedicationsOverview({ medications, onSelect }: MedicationsOvervi
           >
             <HStack gap={4} align="center">
               {/* Patient Avatar */}
-              <Avatar
-                name={rxIntakeData.patientName || 'Patient'}
+              <Avatar.Root
                 size="md"
                 bg="#235BC5"
                 color="white"
-                fontWeight="600"
-              />
+              >
+                <Avatar.Fallback>
+                  {rxIntakeData.patientName ? rxIntakeData.patientName.charAt(0).toUpperCase() : 'P'}
+                </Avatar.Fallback>
+              </Avatar.Root>
               
               {/* Patient Info */}
               <VStack align="flex-start" gap={1} flex={1}>

@@ -1,4 +1,4 @@
-import { Box, HStack, Text, VStack, Badge, CardRoot, CardBody } from '@chakra-ui/react';
+import { Box, HStack, Text, VStack, Badge, CardRoot, CardBody, Link } from '@chakra-ui/react';
 import { Medication, Refill } from '../types';
 import { useRefillViewState } from './useRefillViewState';
 import { useNotification } from './useNotification';
@@ -22,7 +22,7 @@ interface RefillStatusProps {
   onBack: () => void;
 }
 
-export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBack }: RefillStatusProps) {
+export function RefillStatus({ refill, isDemoMode, currentTime, onBack }: RefillStatusProps) {
   // Get resolved view state with notification simulation (ZERO business logic in component)
   const viewState = useRefillViewState(refill, currentTime);
 
@@ -183,11 +183,10 @@ export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBa
                           {ownerLabel}
                         </Text>
                         {viewState.owner === 'Pharmacy' && (
-                          <Text 
+                          <Link 
                             fontSize="sm" 
                             color="blue.500"
                             fontWeight="500"
-                            as="a"
                             href={`tel:${pharmacyPhone}`}
                             _hover={{ 
                               color: 'blue.600',
@@ -195,7 +194,7 @@ export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBa
                             }}
                           >
                             {pharmacyPhone}
-                          </Text>
+                          </Link>
                         )}
                       </HStack>
                     </HStack>
@@ -210,13 +209,13 @@ export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBa
         {viewState.showActions && viewState.actions && (
           <VStack align="stretch" gap={3}>
             {viewState.actions.includes("CONTACT_PHARMACY") && (
-              <ActionButton 
-                aria-label="Contact pharmacy about this refill"
-                as="a"
-                href={`tel:${pharmacyPhone}`}
-              >
-                Contact pharmacy ({pharmacyPhone})
-              </ActionButton>
+              <Link href={`tel:${pharmacyPhone}`} style={{ textDecoration: 'none' }}>
+                <ActionButton 
+                  aria-label="Contact pharmacy about this refill"
+                >
+                  Contact pharmacy ({pharmacyPhone})
+                </ActionButton>
+              </Link>
             )}
             {viewState.actions.includes("CONTACT_DOCTOR") && (
               <ActionButton 

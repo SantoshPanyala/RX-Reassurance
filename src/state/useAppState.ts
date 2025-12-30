@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { Medication, Refill, BackendRefillState } from '../types';
+import { Medication, Refill } from '../types';
 import { getEvolvedMedications } from '../mockData';
 import { adaptMedicationToRefill } from '../refill/adaptRefill';
 import { startDemoSimulation } from '../refill/demoRefillSimulator';

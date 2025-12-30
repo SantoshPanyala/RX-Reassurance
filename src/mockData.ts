@@ -1,5 +1,4 @@
 import { Medication } from './types';
-import { STALE_WAITING_DAYS } from './refill/refillThresholds';
 
 // Base mock data with initial timestamps (relative to a fixed start time)
 const BASE_TIME = Date.now();
@@ -54,7 +53,7 @@ export function getEvolvedMedications(currentTime: number): Medication[] {
   const daysDelta = timeDelta / (1000 * 60 * 60 * 24);
 
   return baseMedicationsMock.map(med => {
-    const daysSinceUpdate = (currentTime - med.updatedAt) / (1000 * 60 * 60 * 24);
+    const daysSinceUpdate = med.updatedAt ? (currentTime - med.updatedAt) / (1000 * 60 * 60 * 24) : 0;
     
     // Evolve daysLeft if it exists
     let evolvedDaysLeft = med.daysLeft;
