@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Heading, VStack, Box, Text, HStack, Button, Avatar } from '@chakra-ui/react';
+import { Heading, VStack, Box, Text, HStack, Button, Avatar, Image } from '@chakra-ui/react';
 import { Medication } from '../types';
 import { MedicationCard } from './MedicationCard';
 import { PageContainer, PromoCard } from '../design-system';
@@ -62,10 +62,11 @@ export function MedicationsOverview({ medications, onSelect }: MedicationsOvervi
         {/* Page title with logo - confident, large */}
         <HStack gap={4} align="center" justify="space-between">
           <HStack gap={4} align="center">
-            <img 
+            <Image 
               src={Logo} 
               alt="Ultracare Pharmacy" 
-              style={{ height: '40px', width: 'auto' }}
+              h="40px"
+              w="auto"
             />
             <Heading 
               as="h1" 
@@ -82,7 +83,7 @@ export function MedicationsOverview({ medications, onSelect }: MedicationsOvervi
             onClick={() => {
               // Clear localStorage and redirect to website
               localStorage.removeItem('ultracare_rx_intake');
-              window.location.href = 'http://localhost:5173/';
+              window.location.href = 'https://ultracare-pharmacy.vercel.app/';
             }}
             colorScheme="blue"
             variant="solid"

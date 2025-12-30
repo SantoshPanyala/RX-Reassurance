@@ -6,6 +6,7 @@ import { startDemoSimulation } from '../refill/demoRefillSimulator';
 import { useSimulatedTime } from '../utils/useSimulatedTime';
 import { isDemoMode } from '../utils/demoMode';
 import { DemoScenario, getDefaultScenario } from '../demo/demoScenarios';
+import { validateRxNumber, getRxFromUrl } from '../utils/rxValidation';
 
 export function useAppState() {
   // #region agent log
@@ -14,6 +15,20 @@ export function useAppState() {
   
   // Check if we're in demo mode (URL-based)
   const demoMode = isDemoMode();
+  
+  // Validate Rx number from URL (production gate)
+  const rxFromUrl = getRxFromUrl();
+  const validatedCustomer = useMemo(() => {
+    // In demo mode, skip validation (scenarios work)
+    if (demoMode) {
+      return null; // Demo mode doesn't require Rx validation
+    }
+    // In production, validate Rx number
+    return validateRxNumber(rxFromUrl);
+  }, [rxFromUrl, demoMode]);
+  
+  // Rx is invalid if we're not in demo mode and (rx is missing OR validation failed)
+  const isRxInvalid = !demoMode && (rxFromUrl === null || !validatedCustomer);
   
   // Simulated time controller (uses real time in production, simulated in demo)
   const { currentTime, advanceDays } = useSimulatedTime();
@@ -162,5 +177,8 @@ export function useAppState() {
     // Demo mode only
     selectedScenario,
     selectScenario: setSelectedScenario,
+    // Rx validation
+    isRxInvalid,
+    validatedCustomer,
   };
 }

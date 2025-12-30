@@ -7,6 +7,7 @@ import { DemoTimeControls } from './refill/DemoTimeControls';
 import { SimulatedTimeProvider } from './utils/SimulatedTimeContext';
 import { DemoBanner } from './demo/DemoBanner';
 import { ScenarioSelector } from './demo/ScenarioSelector';
+import { RxErrorState } from './error/RxErrorState';
 
 function AppContent() {
   // #region agent log
@@ -28,6 +29,7 @@ function AppContent() {
     advanceDays,
     selectedScenario,
     selectScenario,
+    isRxInvalid,
   } = useAppState();
   
   // #region agent log
@@ -35,6 +37,17 @@ function AppContent() {
   // #endregion
 
   const refill = selectedMedication ? getRefillForMedication(selectedMedication) : null;
+
+  // Show error state if Rx is invalid (production gate)
+  if (isRxInvalid) {
+    return (
+      <SimulatedTimeProvider currentTime={currentTime}>
+        <WireframeLayout>
+          <RxErrorState />
+        </WireframeLayout>
+      </SimulatedTimeProvider>
+    );
+  }
 
   return (
     <SimulatedTimeProvider currentTime={currentTime}>
