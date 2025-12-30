@@ -8,7 +8,7 @@ export function StatusDescription({ children, ...props }: StatusDescriptionProps
   return (
     <Text 
       fontSize="md"
-      color="gray.600"
+      color="#3C4043"
       lineHeight="1.6"
       {...props}
     >

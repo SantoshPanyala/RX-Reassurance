@@ -29,6 +29,7 @@ export function MedicationCard({ medication, onClick }: MedicationCardProps) {
       width="100%"
       textAlign="left"
       cursor="pointer"
+      bg="#E8E4DD"
       transition="all 0.2s ease"
       _hover={{
         shadow: 'md',

@@ -10,7 +10,7 @@ export function StatusTitle({ children, ...props }: StatusTitleProps) {
       as="h1" 
       fontSize="2xl" 
       fontWeight="700"
-      color="gray.900"
+      color="blue.500"
       lineHeight="1.3"
       letterSpacing="-0.01em"
       {...props}

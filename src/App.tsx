@@ -5,7 +5,15 @@ import { RefillStatus } from './refill/RefillStatus';
 import { DemoTimeControls } from './refill/DemoTimeControls';
 import { SimulatedTimeProvider } from './utils/SimulatedTimeContext';
 
-function App() {
+function AppContent() {
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/ce92f0db-d97d-4ac5-956e-d769c064fdb9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:9',message:'AppContent render start',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+  // #endregion
+  
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/ce92f0db-d97d-4ac5-956e-d769c064fdb9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:13',message:'About to call useAppState',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+  // #endregion
+  
   const {
     medications,
     selectedMedication,
@@ -16,6 +24,10 @@ function App() {
     currentTime,
     advanceDays,
   } = useAppState();
+  
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/ce92f0db-d97d-4ac5-956e-d769c064fdb9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:28',message:'useAppState returned',data:{medicationsCount:medications?.length,selectedMedication:!!selectedMedication},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+  // #endregion
 
   const refill = selectedMedication ? getRefillForMedication(selectedMedication) : null;
 
@@ -40,6 +52,14 @@ function App() {
       </WireframeLayout>
     </SimulatedTimeProvider>
   );
+}
+
+function App() {
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/ce92f0db-d97d-4ac5-956e-d769c064fdb9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:45',message:'App component render',data:{url:window.location.href},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+  // #endregion
+  console.log('✅ Tracking App loaded successfully');
+  return <AppContent />;
 }
 
 export default App;

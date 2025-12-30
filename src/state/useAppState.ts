@@ -6,11 +6,23 @@ import { startDemoSimulation } from '../refill/demoRefillSimulator';
 import { useSimulatedTime } from '../utils/useSimulatedTime';
 
 export function useAppState() {
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/ce92f0db-d97d-4ac5-956e-d769c064fdb9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useAppState.ts:8',message:'useAppState hook entry',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+  // #endregion
+  
   // Simulated time controller
   const { currentTime, advanceDays } = useSimulatedTime();
   
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/ce92f0db-d97d-4ac5-956e-d769c064fdb9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useAppState.ts:13',message:'About to call getEvolvedMedications',data:{currentTime},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+  // #endregion
+  
   // Get evolved medications based on current simulated time
   const medications = useMemo(() => getEvolvedMedications(currentTime), [currentTime]);
+  
+  // #region agent log
+  fetch('http://127.0.0.1:7244/ingest/ce92f0db-d97d-4ac5-956e-d769c064fdb9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useAppState.ts:16',message:'getEvolvedMedications completed',data:{medicationsCount:medications?.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+  // #endregion
   
   const [selectedMedication, setSelectedMedication] =
     useState<Medication | null>(null);

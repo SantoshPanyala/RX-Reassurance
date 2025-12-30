@@ -47,6 +47,9 @@ export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBa
     : viewState.owner
     ? `Handled by ${viewState.owner.toLowerCase()}`
     : undefined;
+  
+  // Phone number for pharmacy contact
+  const pharmacyPhone = '301-569-6464';
 
   // Get timestamp for status
   const statusTimestamp = refill 
@@ -81,7 +84,7 @@ export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBa
           <ActionButton
             variant="ghost"
             onClick={onBack}
-            colorPalette="gray"
+            colorPalette="blue"
             size="sm"
             h="40px"
             px={3}
@@ -95,7 +98,11 @@ export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBa
         </HStack>
 
         {/* Status card - modern, clean */}
-        <CardRoot>
+        <CardRoot 
+          bg="#E8E4DD" 
+          border="1px solid"
+          borderColor="gray.300"
+        >
           <CardBody>
             <VStack align="stretch" gap={5}>
               {/* Header with title and badge */}
@@ -146,7 +153,7 @@ export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBa
 
                 {/* Reassurance microcopy - neutral, calming */}
                 {viewState.reassurance && (
-                  <Text fontSize="sm" color="gray.600" lineHeight="1.5">
+                  <Text fontSize="sm" color="#3C4043" lineHeight="1.5">
                     {viewState.reassurance}
                   </Text>
                 )}
@@ -163,17 +170,34 @@ export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBa
               {ownerLabel && OwnerIcon && (
                 <>
                   <Box borderTop="1px" borderColor="gray.200" pt={4}>
-                    <HStack gap={2} align="center">
+                    <HStack gap={2} align="center" flexWrap="wrap">
                       <Box color="gray.400" flexShrink={0}>
                         <OwnerIcon size={16} />
                       </Box>
-                      <Text 
-                        fontSize="sm" 
-                        color="gray.600"
-                        fontWeight="500"
-                      >
-                        {ownerLabel}
-                      </Text>
+                      <HStack gap={2} align="center" flexWrap="wrap">
+                        <Text 
+                          fontSize="sm" 
+                          color="gray.600"
+                          fontWeight="500"
+                        >
+                          {ownerLabel}
+                        </Text>
+                        {viewState.owner === 'Pharmacy' && (
+                          <Text 
+                            fontSize="sm" 
+                            color="blue.500"
+                            fontWeight="500"
+                            as="a"
+                            href={`tel:${pharmacyPhone}`}
+                            _hover={{ 
+                              color: 'blue.600',
+                              textDecoration: 'underline'
+                            }}
+                          >
+                            {pharmacyPhone}
+                          </Text>
+                        )}
+                      </HStack>
                     </HStack>
                   </Box>
                 </>
@@ -186,8 +210,12 @@ export function RefillStatus({ medication, refill, isDemoMode, currentTime, onBa
         {viewState.showActions && viewState.actions && (
           <VStack align="stretch" gap={3}>
             {viewState.actions.includes("CONTACT_PHARMACY") && (
-              <ActionButton aria-label="Contact pharmacy about this refill">
-                Contact pharmacy
+              <ActionButton 
+                aria-label="Contact pharmacy about this refill"
+                as="a"
+                href={`tel:${pharmacyPhone}`}
+              >
+                Contact pharmacy ({pharmacyPhone})
               </ActionButton>
             )}
             {viewState.actions.includes("CONTACT_DOCTOR") && (
